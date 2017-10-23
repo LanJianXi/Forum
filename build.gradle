@@ -1,0 +1,32 @@
+group 'com.lanbber'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile libraries.thrift
+    compile libraries.kafka_client
+    compile libraries.kafka_connect
+    compile libraries.slf4j
+    compile libraries.spring_core
+    compile libraries.spring_context
+    compile libraries.spring_beans
+    compile libraries.spring_jdbc
+    compile libraries.spring_test
+    compile libraries.spring_expression
+    compile libraries.spring_redis
+    compile libraries.jedis
+    compile group: 'com.almworks.sqlite4java', name: 'sqlite4java-win32-x64', version: '1.0.392'
+    compile libraries.mongodb
+    compile libraries.hibernateValidator
+    compile libraries.validation
+    compile libraries.logback
+    compile libraries.spring_security
+    compile group: 'org.springframework.session', name: 'spring-session-data-redis', version: '1.3.1.RELEASE'
+    compile libraries.common_pool
+
+    compile project(":common")
+}
