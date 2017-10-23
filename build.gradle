@@ -1,32 +1,44 @@
-group 'com.lanbber'
-version '1.0-SNAPSHOT'
+// All
+buildscript {
+    apply from: "${rootDir}/build/dependencies.gradle"
 
-repositories {
-    mavenCentral()
-    jcenter()
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath gradle_plugins.values()
+    }
 }
 
-dependencies {
-    compile libraries.thrift
-    compile libraries.kafka_client
-    compile libraries.kafka_connect
-    compile libraries.slf4j
-    compile libraries.spring_core
-    compile libraries.spring_context
-    compile libraries.spring_beans
-    compile libraries.spring_jdbc
-    compile libraries.spring_test
-    compile libraries.spring_expression
-    compile libraries.spring_redis
-    compile libraries.jedis
-    compile group: 'com.almworks.sqlite4java', name: 'sqlite4java-win32-x64', version: '1.0.392'
-    compile libraries.mongodb
-    compile libraries.hibernateValidator
-    compile libraries.validation
-    compile libraries.logback
-    compile libraries.spring_security
-    compile group: 'org.springframework.session', name: 'spring-session-data-redis', version: '1.3.1.RELEASE'
-    compile libraries.common_pool
+// define global variables
+ext.global = [
+        javac_compatibility: 1.8,
+        root_dir: "${rootProject.projectDir}",
+        build_time: new Date().format("yyyyMMddHHmm", TimeZone.getTimeZone("UTC")),
+]
 
-    compile project(":common")
+allprojects {
+    buildDir = new File(global.root_dir, "out/${project.name}")
+}
+
+subprojects {
+    apply from: "${rootDir}/build/dependencies.gradle"
+
+    ext.local = [
+            group: 'com.lanbber',
+    ]
+
+    apply plugin: 'java'
+
+    sourceCompatibility = global.javac_compatibility
+    targetCompatibility = global.javac_compatibility
+
+    dependencies {
+        testCompile test_libraries.junit
+        testCompile test_libraries.mockito
+        testCompile test_libraries.powermock_junit4
+        testCompile test_libraries.powermock_api_mockito
+    }
 }
