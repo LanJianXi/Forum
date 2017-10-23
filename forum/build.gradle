@@ -28,6 +28,7 @@ dependencies {
     compile libraries.logback
     compile libraries.spring_security
     compile libraries.common_pool
+    compile libraries.druid
     // https://mvnrepository.com/artifact/com.baomidou/mybatis-plus
     compile group: 'com.baomidou', name: 'mybatis-plus', version: '2.1.4'
 
